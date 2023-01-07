@@ -21,13 +21,14 @@ namespace IPV4
                 Console.WriteLine("L'indirizzo IPV4 inserito non è valido.");
                 return;
             }
-
+            
+            Console.WriteLine("Inserisci la Subnet Mask:");
 
             // Crea un oggetto IPV4 usando l'input dell'utente
             var ip = new IPV4(input);
 
             // Stampa la subnet mask
-            Console.WriteLine($"Subnet mask: {FormatByteArray(ip.GetSubnetMask())}");
+            Console.WriteLine($"\nSubnet mask: {FormatByteArray(ip.GetSubnetMask())}");
 
 
             // Stampa il network address
@@ -45,6 +46,8 @@ namespace IPV4
 
             // Stampa il numero di host possibili
             Console.WriteLine($"Numero di host possibili: {ip.GetTotalNumberOfHosts()}");
+
+            Console.ReadLine();
         }
 
 
@@ -80,7 +83,7 @@ namespace IPV4
         {
             // Inizializza le proprietà
             IP = ip.Split('.').Select(part => byte.Parse(part)).ToArray();
-            SubnetMask = new byte[] { 255, 255, 255, 0 };
+            SubnetMask = Console.ReadLine().Split('.').Select(part => byte.Parse(part)).ToArray();
         }
 
         public byte[] GetIP() => IP;
@@ -168,8 +171,9 @@ namespace IPV4
             return Math.Pow(2, (32 - GetCIDR())) - 2;
         }
 
-
+        
     }
 
+    
 }
 
